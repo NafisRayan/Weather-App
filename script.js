@@ -1,4 +1,3 @@
-const country = document.querySelector("#country");
 const city = document.querySelector("#city");
 const check = document.querySelector("#check");
 const tempIcon = document.querySelector("#tempIcon");
@@ -125,7 +124,6 @@ function updateWeatherUI(data) {
 // Fetch weather data for the main card
 async function fetchWeather() {
     const cityVal = city.value.trim();
-    const countryVal = country.value.trim();
 
     if (!cityVal) {
         alert('Please enter a city name');
@@ -135,8 +133,7 @@ async function fetchWeather() {
     setLoading(true);
 
     try {
-        // Use API_KEY constant
-        const url = `https://api.openweathermap.org/data/2.5/weather?q=${cityVal}${countryVal ? ',' + countryVal : ''}&lang=en&units=metric&appid=${API_KEY}`;
+        const url = `https://api.openweathermap.org/data/2.5/weather?q=${cityVal}&lang=en&units=metric&appid=${API_KEY}`;
 
         const response = await fetch(url);
         if (!response.ok) {
@@ -147,8 +144,7 @@ async function fetchWeather() {
         const data = await response.json();
         updateWeatherUI(data);
 
-        // Clear inputs
-        country.value = '';
+        // Clear input
         city.value = '';
 
     } catch (error) {
@@ -225,7 +221,7 @@ check.addEventListener('click', fetchWeather);
 
 // Add keyboard support
 document.addEventListener('keypress', (e) => {
-    if (e.key === 'Enter' && (document.activeElement === city || document.activeElement === country)) {
+    if (e.key === 'Enter' && document.activeElement === city) {
         fetchWeather();
     }
 });
