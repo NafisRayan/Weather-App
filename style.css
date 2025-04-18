@@ -214,7 +214,7 @@ input:focus {
 
 .detail-item i {
     font-size: 1.5rem;
-    color: var(--accent-color);
+    color: var(--text-color); /* Change icon color to match text color (#f8f9fa) */
 }
 
 .credits {
